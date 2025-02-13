@@ -158,6 +158,46 @@ namespace List
             length++;
         }
         
+        public void Insert(string data, int index)
+        {
+            // Verifica si la lista está vacía. Si lo está, el nuevo nodo se convierte en el único elemento.
+            if(IsEmpty())
+            {
+                head = tail = new node(data);
+            }
+            else
+            {
+                // Si el índice es 0, se agrega al inicio usando Prepend.
+                if(index == 0)
+                {
+                    Prepend(data);
+                }
+                // Si el índice es igual a la longitud de la lista, se agrega al final usando Append.
+                else if (index == length)
+                {
+                    Append(data);
+                }
+                // Si el índice es mayor que la longitud, muestra un mensaje de error.
+                else if(index > length)
+                {
+                    Console.WriteLine("El indice al que desea agregar un objeto no es parte de la lista");
+                }
+                else
+                {
+                    // Recorre la lista hasta encontrar el índice indicado.
+                    node current = head;
+                    for(int i = 1; i < index; i++)
+                    {
+                        current = current.next;
+                    }
+                    // Inserta un nuevo nodo en la posición deseada, ajustando los punteros.
+                    current.next = new node(data, current, current.next);
+                    current.next.next.prev = current.next;
+                }
+            }
+        }
+
+        
         // Método para eliminar el último nodo de la lista
         public void DeleteLast()
         {
