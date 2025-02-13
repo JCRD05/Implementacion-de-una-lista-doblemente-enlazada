@@ -1,156 +1,68 @@
 # Implementación de Lista Doblemente Enlazada en C#
 
-Este proyecto implementa una **lista doblemente enlazada** en C#, con soporte para listas **circulares y no circulares**. Permite realizar operaciones como agregar elementos al inicio o final, eliminar elementos y recorrer la lista en ambas direcciones.
+## Descripción
+Este proyecto implementa una estructura de datos de **lista doblemente enlazada** en C#, con la posibilidad de ser **circular o no**. La lista permite operaciones como agregar, eliminar e imprimir elementos en orden normal e inverso.
 
-## Contenido del Proyecto
-El código se divide en tres archivos principales:
-
-1. **`node.cs`**: Define la estructura de un nodo de la lista.
-2. **`list.cs`**: Implementa la lista doblemente enlazada con las operaciones básicas.
-3. **`Program.cs`**: Contiene la interfaz de consola para interactuar con la lista.
+### Estructura del Proyecto
+- **`node.cs`**: Define la clase `node`, que representa un nodo en la lista doblemente enlazada.
+- **`list.cs`**: Implementa la clase `list`, que maneja la estructura de la lista y sus operaciones.
+- **`Program.cs`**: Contiene la lógica de interacción con el usuario, permitiendo la creación y manipulación de la lista.
 
 ## Implementación
-
 ### `node.cs`
-```csharp
-namespace List
-{
-	class node
-	{
-	    public string data;
-	    public node prev;
-	    public node next;
-	    
-	    public node(string data, node prev, node next)
-	    {
-	        this.data = data;
-	        this.prev = prev;
-	        this.next = next;
-	    }
-	    
-	    public node(string data)
-	    {
-	        this.data = data;
-	        this.prev = null;
-	        this.next = null;
-	    }
-	    
-	    public node()
-	    {
-	        this.data = " ";
-	        this.prev = null;
-	        this.next = null;
-	    }
-	}
-}
-```
+Cada nodo tiene:
+- Un **valor** (`data`)
+- Un **puntero al nodo anterior** (`prev`)
+- Un **puntero al nodo siguiente** (`next`)
 
 ### `list.cs`
-```csharp
-using System;
-using List;
+La clase `list` maneja la estructura de la lista e implementa los siguientes métodos:
+- **`Append(string data)`**: Agrega un nodo al final de la lista.
+- **`Prepend(string data)`**: Agrega un nodo al inicio de la lista.
+- **`DeleteLast()`**: Elimina el último nodo de la lista.
+- **`DeleteFirst()`**: Elimina el primer nodo de la lista.
+- **`Print()`**: Imprime los elementos de la lista en orden normal.
+- **`PrintBackwards()`**: Imprime los elementos de la lista en orden inverso.
+- **`IsEmpty()`**: Verifica si la lista está vacía.
 
-namespace List
-{
-    class list
-    {
-        private node head;
-        private node tail;
-        private int length;
-        private string name;
-        private bool IsCircular;
-        
-        public list(string name, bool IsCircular)
-        {
-            this.name = name;
-            head = tail = null;
-            length = 0;
-            this.IsCircular = IsCircular;
-        }
-        
-        public bool IsEmpty()
-        {
-            return head == null;
-        }
-        
-        public void Print()
-        {
-            if(IsEmpty())
-                Console.WriteLine("La lista no tiene elementos que imprimir");
-            else
-            {
-                node current = head;
-                Console.WriteLine("\n" + name + "\n");
-                do
-                {
-                    Console.WriteLine(current.data);
-                    current = current.next;
-                } while (current != head && IsCircular);
-            }
-        }
-        
-        public void Append(string data)
-        {
-            if(IsEmpty())
-                head = tail = new node(data);
-            else
-            {
-                tail.next = new node(data, tail, IsCircular ? head : null);
-                tail = tail.next;
-                if (IsCircular) head.prev = tail;
-            }
-            length++;
-        }
-    }
-}
-```
+La lista puede ser **circular** o **no circular**, dependiendo de la opción elegida al momento de su creación.
 
 ### `Program.cs`
-```csharp
-using System;
-using List;
-
-class Program
-{
-    static void Main()
-    {
-        Console.WriteLine("¿Desea crear una lista? (1. Si / 2. No)");
-        int makeList = Convert.ToInt32(Console.ReadLine());
-        if (makeList != 1) return;
-        
-        Console.WriteLine("¿Desea que sea circular? (1. Si / 2. No)");
-        bool isCircular = Convert.ToInt32(Console.ReadLine()) == 1;
-        
-        Console.WriteLine("Introduzca el nombre de la lista:");
-        string listName = Console.ReadLine();
-        
-        list lista = new list(listName, isCircular);
-        
-        Console.WriteLine("Agregue un elemento al final:");
-        string data = Console.ReadLine();
-        lista.Append(data);
-        
-        Console.WriteLine("Contenido de la lista:");
-        lista.Print();
-    }
-}
-```
+Este archivo proporciona una interfaz de consola para interactuar con la lista. Permite al usuario:
+1. Crear una lista (circular o no).
+2. Agregar elementos al inicio o al final.
+3. Eliminar elementos del inicio o del final.
+4. Imprimir la lista en orden normal o inverso.
 
 ## Ejemplo de Uso
-### Crear una Lista Circular y Agregar un Elemento
-```
-¿Desea crear una lista? (1. Si / 2. No)
+Al ejecutar el programa, se mostrará el siguiente flujo:
+
+```plaintext
+¿Desea crear una lista?
+1. Si 2. No
 > 1
-¿Desea que sea circular? (1. Si / 2. No)
+¿Desea que sea circular?
+1. Si 2. No
+> 2
+Introduzca el nombre de la lista
+> ListaEjemplo
+
+¿Que operacion desea hacer?
+1. Agregar un elemento al final
+2. Agregar un elemento al principio
+3. Eliminar un elemento al final
+4. Eliminar un elemento al principio
+5. Imprimir elementos
+6. Imprimir elementos al revés
 > 1
-Introduzca el nombre de la lista:
-> MiLista
-Agregue un elemento al final:
+Introduzca el texto que desea meter al final de la lista
 > Hola
-Contenido de la lista:
-MiLista
+
+¿Desea realizar otra operación?
+1. Si 2. No
+> 1
+> 5
+
+ListaEjemplo
 Hola
 ```
-
-Este código proporciona una **estructura básica de lista doblemente enlazada**, con soporte para listas circulares y una interfaz de consola para su manipulación.
-
