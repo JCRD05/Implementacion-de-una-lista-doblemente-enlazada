@@ -195,6 +195,7 @@ namespace List
                     current.next.next.prev = current.next;
                 }
             }
+            length++;
         }
 
         
@@ -250,6 +251,43 @@ namespace List
                 current.prev = null;
                 head = current;
                 length--;
+            }
+        }
+        
+        // Metodo para eliminar un elemento en un punto dado
+        public void Delete(int index) 
+        {
+            // Si esta vacia muestra una excepcion 
+            if(IsEmpty()){ Console.WriteLine("La lista esta vacia, no se puede elminar ningun elemento"); } 
+            else
+            {
+                // Si el length es 1 llama a DeleteFirst()
+                if(length == 1) 
+                {
+                    DeleteFirst();
+                }
+                // Si el length es 2 llama a DeleteLast()
+                else if(length == 2) 
+                {
+                    DeleteLast();
+                }
+                 // Si el índice es mayor que la longitud, muestra un mensaje de error.
+                else if(index > length)
+                {
+                    Console.WriteLine("El indice al que desea eliminar un objeto no es parte de la lista");
+                }
+                else
+                {
+                     // Recorre la lista hasta encontrar el índice indicado.
+                    node current = head;
+                    for(int i = 1; i < index; i++)
+                    {
+                        current = current.next;
+                    }
+                    // Elimina un nodo en la posición deseada, ajustando los punteros.
+                    current.next = current.next.next;
+                    current = current.next;
+                }
             }
         }
     }
