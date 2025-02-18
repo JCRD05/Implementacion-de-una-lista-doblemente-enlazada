@@ -25,6 +25,7 @@ La clase `list` maneja la estructura de la lista e implementa los siguientes mé
 - **`PrintBackwards()`**: Imprime los elementos de la lista en orden inverso.
 - **`IsEmpty()`**: Verifica si la lista está vacía.
 - **`Insert()`**: Inserta un nodo en un punto especifico de la lista.
+- **`Delete()`**: Elimina un nodo en un punto especifico de la lista.
 
 La lista puede ser **circular** o **no circular**, dependiendo de la opción elegida al momento de su creación.
 
