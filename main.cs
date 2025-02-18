@@ -132,6 +132,6 @@ class Program
             opt = Convert.ToInt32(Console.ReadLine());
             Operations(lista, opt); // Ejecuta la operación seleccionada
             if (opt == 9){ return; }
-        } while (Exit() && (opt > 0 && opt < 9)); // Repite mientras el usuario quiera continuar y la opción sea válida
+        } while (Exit() || (opt > 0 && opt < 9)); // Repite mientras el usuario quiera continuar y la opción sea válida
 	}
 }
