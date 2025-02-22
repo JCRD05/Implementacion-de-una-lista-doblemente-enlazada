@@ -14,6 +14,7 @@ namespace Program
         List list; // Lista utilizada en el programa
         object data; // Dato que se almacena en la lista
         int index; // Posicion especifica a la que se agrega o se elimina un dato de la lista
+        int option; // Variable que guarda la operacion que el usuario elige
         
         // Constructor del menu
         public Menu(){}
@@ -24,10 +25,9 @@ namespace Program
             Console.WriteLine("Lista Doblemente Enlazada Interactiva\n");
             this.list = new List(IsCircular());
             
-            int option = 0;
             do
             {
-                Operations(ref option);
+                Operations();
                 if(option == 9) { return; }
             }while(true);
         }
@@ -48,7 +48,7 @@ namespace Program
         }
         
         // Despliega en el menu las operaciones de la lista
-        public void Operations(ref int option)
+        public void Operations()
         {
             Thread.Sleep(500);
             Console.WriteLine("\n¿Que operacion desea realizar?\n");
